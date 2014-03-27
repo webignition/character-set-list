@@ -1,0 +1,29 @@
+{
+    "name": "webignition/character-set-list",
+    "description": "List of official names for character sets",
+    "keywords": ["character", "set", "list"],
+    "homepage": "https://github.com/webignition/character-set-list",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jon Cram",
+            "email": "jon@webignition.net"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "webignition\\Tests": "tests/",
+            "": "src/"
+        }
+    },   
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "symfony/class-loader": "*",
+        "phpunit/phpunit": "3.7.*"
+    },            
+    "minimum-stability":"stable",
+    "prefer-stable":true
+}
