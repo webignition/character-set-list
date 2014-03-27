@@ -8,12 +8,6 @@ namespace webignition\CharacterSetList;
  */
 class CharacterSetList {
     
-    /**
-     *
-     * @var \webignition\CharacterSetList\Configuration
-     */
-    private $configuration; 
-    
     
     /**
      *
@@ -30,15 +24,18 @@ class CharacterSetList {
     
     
     /**
+     *
+     * @var \webignition\CharacterSetList\Generator
+     */
+    private $generator = null;
+    
+    
+    /**
      * 
      * @return \webignition\CharacterSetList\Configuration
      */
     public function getConfiguration() {
-        if (is_null($this->configuration)) {
-            $this->configuration = new Configuration();
-        }
-        
-        return $this->configuration;
+        return $this->getGenerator()->getConfiguration();
     }
     
     
@@ -76,11 +73,23 @@ class CharacterSetList {
     
     private function loadList() {
         if (!$this->hasSourceFile()) {
-            $generator = new Generator();
-            $generator->generate();
+            $this->getGenerator()->generate();
         }
 
         $this->list = json_decode(file_get_contents($this->getConfiguration()->getOutputContentPath()));        
+    }
+    
+    
+    /**
+     * 
+     * @return \webignition\CharacterSetList\Generator
+     */
+    public function getGenerator() {
+        if (is_null($this->generator)) {
+            $this->generator = new Generator();
+        }
+        
+        return $this->generator;
     }
     
     
