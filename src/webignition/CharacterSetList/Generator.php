@@ -43,7 +43,26 @@ class Generator {
             }
         }
         
-        file_put_contents($this->getConfiguration()->getOutputContentPath(), json_encode(array_keys($this->list)));
+        file_put_contents($this->getConfiguration()->getOutputContentPath(), $this->getGenereratedListContent());
+    }
+    
+    
+    private function getGenereratedListContent() {
+        $templateContent = file_get_contents($this->getConfiguration()->getOutputTemplatePath());
+        
+        $listValues = array_keys($this->list);
+        
+        array_walk($listValues, function(&$n) { 
+          $n = "'".$n."'"; 
+        });
+        
+        return (str_replace(array(
+            'GeneratedListTemplate',
+            'array()'
+        ), array(
+            'GeneratedList',
+            'array(' . implode(',', $listValues) . ')'
+        ), $templateContent));
     }
     
     

@@ -44,11 +44,12 @@ class CharacterSetList {
      * @return array
      */
     public function get() {
-        if (is_null($this->list)) {
-            $this->loadList();            
+        if (!class_exists('\webignition\CharacterSetList\GeneratedList')) {
+            $this->getGenerator()->generate();
+            include_once $this->getConfiguration()->getOutputContentPath();
         }
         
-        return $this->list;
+        return \webignition\CharacterSetList\GeneratedList::get();
     }
     
     
@@ -59,24 +60,6 @@ class CharacterSetList {
      */
     public function contains($name) {
         return array_key_exists(strtolower($name), $this->getIndex());
-    }
-    
-    
-    /**
-     * 
-     * @return boolean
-     */
-    private function hasSourceFile() {
-        return file_exists($this->getConfiguration()->getOutputContentPath());
-    }
-    
-    
-    private function loadList() {
-        if (!$this->hasSourceFile()) {
-            $this->getGenerator()->generate();
-        }
-
-        $this->list = json_decode(file_get_contents($this->getConfiguration()->getOutputContentPath()));        
     }
     
     

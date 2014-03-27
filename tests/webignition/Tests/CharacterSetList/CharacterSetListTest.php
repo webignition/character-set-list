@@ -15,7 +15,12 @@ class CharacterSetListTest extends BaseTest {
     
     public function setUp() {
         parent::setUp();
-        $this->characterSetList = new CharacterSetList();      
+        $this->characterSetList = new CharacterSetList();        
+    }
+    
+    public function tearDown() {
+        parent::tearDown();
+        $this->characterSetList->getGenerator()->removeOutput();
     }
     
     public function testListSizeIsGreaterThanZero() {

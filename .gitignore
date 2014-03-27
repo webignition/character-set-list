@@ -4,3 +4,6 @@
 # Composer
 /composer.phar
 /vendor
+
+# Generated files
+/src/webignition/CharacterSetList/GeneratedList.php
