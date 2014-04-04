@@ -3,8 +3,7 @@ php:
   - 5.3
   - 5.4
   - 5.5
+  - hhvm
   
-before_script:
-  # Install composer for dependency management
-  - wget http://getcomposer.org/composer.phar
-  - php composer.phar install
+matrix:
+  fast_finish: true
